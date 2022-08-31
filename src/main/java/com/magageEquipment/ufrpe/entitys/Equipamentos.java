@@ -21,14 +21,15 @@ public class Equipamentos {
     @Column(name = "id", nullable = false)
     private UUID id;
 
+    private String identificacao;
+
     private String marca;
 
     private String modelo;
 
-    @Enumerated
-    private Status disponibilidade;
-
     @Column(columnDefinition = "TEXT")
-    private String observacoes;
+    private String descricao;
+
+    private Integer codigoDeBarras;
 
 }

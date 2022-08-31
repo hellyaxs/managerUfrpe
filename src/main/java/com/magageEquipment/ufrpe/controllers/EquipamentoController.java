@@ -25,7 +25,7 @@ public class EquipamentoController {
         Optional<Equipamentos> optionalEquipamentos = equipamentosRepository.findById(id);
         return optionalEquipamentos.orElse(null);
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public Equipamentos createEquipamento(@RequestBody Equipamentos equipamentos){
         return equipamentosRepository.save(equipamentos);

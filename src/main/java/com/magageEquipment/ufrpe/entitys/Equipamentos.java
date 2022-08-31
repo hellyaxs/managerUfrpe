@@ -30,6 +30,6 @@ public class Equipamentos {
     @Column(columnDefinition = "TEXT")
     private String descricao;
 
-    private Integer codigoDeBarras;
+    private Integer codigo;
 
 }

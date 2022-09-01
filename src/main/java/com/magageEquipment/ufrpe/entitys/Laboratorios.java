@@ -14,16 +14,20 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "salas")
-public class Salas {
+@Table(name = "laboratorios")
+public class Laboratorios {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    private int capacidade;
+    private Integer identificacao;
 
-    @Enumerated
-    private Status status;
+    private String localizacao;
+
+    private Integer capacidade;
+
+    private String descricao;
+
 
 }

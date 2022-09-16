@@ -24,12 +24,13 @@ public class AluguelLabService {
         var laboratorio = laboratorioRepository.findById(aluguelLaboraorios.getLaboratorios().getId());
 
         if(laboratorio.get().getDisponibilidade() == Status.DISPONIVEL){
-            aluguelLaboraoriosRepository.save(aluguelLaboraorios);
             laboratorio.get().setDisponibilidade(Status.INDISPONIVEL);
-            laboratorioRepository.save(laboratorio.get());
-            return new ResponseEntity<>("solicitação acteita",HttpStatus.ACCEPTED);
+            aluguelLaboraorios.setLaboratorios(laboratorio.get());
+            aluguelLaboraoriosRepository.save(aluguelLaboraorios);
+
+            return new ResponseEntity<>("solicitacao aceita",HttpStatus.ACCEPTED);
         }else{
-            return new ResponseEntity<>("o equipamento esta indisponivel",HttpStatus.CONFLICT);
+            return new ResponseEntity<>("o Laboratorio nao esta indisponivel",HttpStatus.CONFLICT);
         }
 
 

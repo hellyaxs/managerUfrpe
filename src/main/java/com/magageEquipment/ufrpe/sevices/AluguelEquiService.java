@@ -5,6 +5,8 @@ import com.magageEquipment.ufrpe.enums.Status;
 import com.magageEquipment.ufrpe.repositorys.AluguelRepository;
 import com.magageEquipment.ufrpe.repositorys.EquipamentosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,14 +22,15 @@ public class AluguelEquiService {
     private EquipamentosRepository equipamentosRepository;
 
     @Transactional
-    public void alugar(AluguelEquipamentos aluguelEquipamentos){
+    public ResponseEntity<String> alugar(AluguelEquipamentos aluguelEquipamentos){
         var equipamento = equipamentosRepository.getReferenceById(aluguelEquipamentos.getEquipamento().getId());
         if (equipamento.getDisponibilidade() == Status.DISPONIVEL){
-            aluguelRepository.save(aluguelEquipamentos);
             equipamento.setDisponibilidade(Status.INDISPONIVEL);
-            equipamentosRepository.save(equipamento);
+            aluguelEquipamentos.setEquipamento(equipamento);
+            aluguelRepository.save(aluguelEquipamentos);
+            return new ResponseEntity<>("solicitacao aceita", HttpStatus.ACCEPTED);
         }else{
-            System.out.println("não disponivel");
+            return new ResponseEntity<>("o equipamento nao esta indisponivel",HttpStatus.CONFLICT);
         }
     }
 

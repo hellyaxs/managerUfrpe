@@ -3,6 +3,7 @@ package com.magageEquipment.ufrpe.controllers;
 import com.magageEquipment.ufrpe.entitys.AluguelEquipamentos;
 import com.magageEquipment.ufrpe.sevices.AluguelEquiService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +17,8 @@ public class AluguelEquiController {
     private AluguelEquiService aluguelEquiService;
 
     @PostMapping
-    public void novoAlugel(@RequestBody AluguelEquipamentos aluguelEquipamentos){
-        aluguelEquiService.alugar(aluguelEquipamentos);
+    public ResponseEntity<String> novoAlugel(@RequestBody AluguelEquipamentos aluguelEquipamentos){
+       return aluguelEquiService.alugar(aluguelEquipamentos);
     }
 
     @GetMapping

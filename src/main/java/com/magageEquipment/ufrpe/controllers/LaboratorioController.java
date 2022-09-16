@@ -29,7 +29,6 @@ public class LaboratorioController {
         Optional<Laboratorios> optionallaboratorio = laboratorioRepository.findById(uuid);
         return optionallaboratorio.orElse(null);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @Transactional

@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/equipamento")
+@RequestMapping("/equipamentos")
 public class EquipamentoController {
     @Autowired
     private EquipamentosRepository equipamentosRepository;
@@ -25,7 +25,7 @@ public class EquipamentoController {
         Optional<Equipamentos> optionalEquipamentos = equipamentosRepository.findById(id);
         return optionalEquipamentos.orElse(null);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+    //@CrossOrigin(origins = "http://localhost:4200")
     @PostMapping
     public Equipamentos createEquipamento(@RequestBody Equipamentos equipamentos){
         return equipamentosRepository.save(equipamentos);

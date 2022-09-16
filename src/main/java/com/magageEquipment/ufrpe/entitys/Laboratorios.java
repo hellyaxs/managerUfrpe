@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -15,10 +18,15 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "laboratorios")
-public class Laboratorios {
+public class Laboratorios implements Serializable {
+
+    private static final Long serialVersionUId = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(generator = "uuid4")
+    @GenericGenerator(name = "UUID", strategy = "uuid4")
+    @Type(type = "org.hibernate.type.UUIDCharType")
+    @Column(columnDefinition = "CHAR(36)")
     private UUID id;
 
     private Integer identificacao;
@@ -28,6 +36,9 @@ public class Laboratorios {
     private Integer capacidade;
 
     private String descricao;
+
+    @Enumerated(value = EnumType.STRING)
+    private Status disponibilidade;
 
 
 }

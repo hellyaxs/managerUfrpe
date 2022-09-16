@@ -1,6 +1,5 @@
 package com.magageEquipment.ufrpe.entitys;
 
-import com.magageEquipment.ufrpe.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,19 +9,16 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
-
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "aluguel_laboraorios")
 @Getter
 @Setter
-@Table(name = "equipament")
-public class Equipamentos implements Serializable {
-
-    private static final Long serialVersionUID = 1L;
-
+@AllArgsConstructor
+@NoArgsConstructor
+public class AluguelLaboraorios implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid4")
     @GenericGenerator(name = "UUID", strategy = "uuid4")
@@ -30,18 +26,15 @@ public class Equipamentos implements Serializable {
     @Column(columnDefinition = "CHAR(36)")
     private UUID id;
 
-    private String identificacao;
+    private String name;
 
-    private String marca;
+    private String email;
 
-    private String modelo;
+    private LocalDateTime solicitacao;
 
-    @Column(columnDefinition = "TEXT")
-    private String descricao;
+    private LocalDateTime devolucao;
 
-    private Integer codigo;
-
-    @Enumerated(value = EnumType.STRING)
-    private Status disponibilidade;
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
+    private Laboratorios laboratorios;
 
 }

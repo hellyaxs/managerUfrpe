@@ -34,6 +34,8 @@ public class AluguelLaboraorios implements Serializable {
 
     private LocalDateTime devolucao;
 
+    private Long tempoDeUso;
+
     @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
     private Laboratorios laboratorios;
 

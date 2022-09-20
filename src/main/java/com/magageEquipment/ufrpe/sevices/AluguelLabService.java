@@ -25,6 +25,8 @@ public class AluguelLabService {
 
         if(laboratorio.get().getDisponibilidade() == Status.DISPONIVEL){
             laboratorio.get().setDisponibilidade(Status.INDISPONIVEL);
+            var dataDevolucao = aluguelLaboraorios.getSolicitacao().plusHours(aluguelLaboraorios.getTempoDeUso());
+            aluguelLaboraorios.setDevolucao(dataDevolucao);
             aluguelLaboraorios.setLaboratorios(laboratorio.get());
             aluguelLaboraoriosRepository.save(aluguelLaboraorios);
 

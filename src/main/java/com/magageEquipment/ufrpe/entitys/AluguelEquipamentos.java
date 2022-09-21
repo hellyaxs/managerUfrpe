@@ -17,7 +17,7 @@ import java.util.UUID;
 @Setter
 public class AluguelEquipamentos implements Serializable  {
 
-    private static final Long serilVersionUId = 1L;
+    private static final Long serialVersionUID = 2L;
 
     @Id
     @GeneratedValue(generator = "uuid4")
@@ -43,17 +43,22 @@ public class AluguelEquipamentos implements Serializable  {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof AluguelEquipamentos)) return false;
-        AluguelEquipamentos that = (AluguelEquipamentos) o;
-        var intervaloDeUso = getDevolucao().getHour() > that.getSolicitacao().getHour() && (that.getSolicitacao().getHour() >= getSolicitacao().getHour() || that.getDevolucao().getHour()>getSolicitacao().getHour());
+        AluguelEquipamentos resquestEquipament = (AluguelEquipamentos) o;
+        var intervaloDeUso = getDevolucao().getHour()*60 + getDevolucao().getMinute() > resquestEquipament.getSolicitacao().getHour()*60 +resquestEquipament.getSolicitacao().getMinute()
+                            && (resquestEquipament.getSolicitacao().getHour()*60 +resquestEquipament.getSolicitacao().getMinute() >= getSolicitacao().getHour()*60+ getSolicitacao().getMinute()
+                            || resquestEquipament.getDevolucao().getHour()*60 +resquestEquipament.getDevolucao().getMinute()>getSolicitacao().getHour()*60+getSolicitacao().getMinute());
 
         return Objects
-                .equals(getSolicitacao().toLocalDate(), that.getSolicitacao().toLocalDate())
-                    && Objects.equals(getEquipamento().getId(),that.getEquipamento().getId())
+                .equals(getSolicitacao().toLocalDate(), resquestEquipament.getSolicitacao().toLocalDate())
+                    && Objects.equals(getEquipamento().getId(),resquestEquipament.getEquipamento().getId())
                     &&intervaloDeUso ;
     }
+
 
     @Override
     public int hashCode() {
         return Objects.hash(getSolicitacao(), getDevolucao(), getTempoDeUso());
     }
+
+
 }

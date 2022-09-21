@@ -35,7 +35,7 @@ public class AluguelEquiService {
             var dataDevolucao = aluguelEquipamentos.getSolicitacao().plusHours(aluguelEquipamentos.getTempoDeUso());
             aluguelEquipamentos.setDevolucao(dataDevolucao);
 
-            var alugueis = aluguelRepository.findBySolicitation(aluguelEquipamentos.getSolicitacao());
+            var alugueis = aluguelRepository.findAll();
             for (var aluguelEquipamentos1: alugueis ) {
               var verifica = aluguelEquipamentos1.equals(aluguelEquipamentos);
               if (verifica){
@@ -52,5 +52,12 @@ public class AluguelEquiService {
 
     public List<AluguelEquipamentos> findAll(){
         return aluguelRepository.findAll();
+    }
+
+    public List<AluguelEquipamentos> findByDateToday(LocalDate today){
+        return aluguelRepository.findAll()
+                .stream()
+                .filter(aluguelDate-> aluguelDate.getSolicitacao().toLocalDate()==today)
+                .collect(Collectors.toList());
     }
 }

@@ -29,7 +29,7 @@ public class AluguelEquiService {
     @Transactional
     public ResponseEntity<String> alugar(AluguelEquipamentos aluguelEquipamentos){
         var equipamento = equipamentosRepository.getReferenceById(aluguelEquipamentos.getEquipamento().getId());
-        if (equipamento.getDisponibilidade() == Status.DISPONIVEL){
+        if (equipamento.getDisponibilidade() == true){
             aluguelEquipamentos.setEquipamento(equipamento);
             var dataDevolucao = aluguelEquipamentos.getSolicitacao().plusHours(aluguelEquipamentos.getTempoDeUso());
             aluguelEquipamentos.setDevolucao(dataDevolucao);

@@ -29,7 +29,7 @@ public class AluguelLabService {
     public ResponseEntity<String> alugar(AluguelLaboraorios aluguelLaboraorios){
         var laboratorio = laboratorioRepository.findById(aluguelLaboraorios.getLaboratorios().getId());
 
-        if(laboratorio.get().getDisponibilidade() == Status.DISPONIVEL){
+        if(laboratorio.get().getDisponibilidade() == true){
             var dataDevolucao = aluguelLaboraorios.getSolicitacao().plusHours(aluguelLaboraorios.getTempoDeUso());
             aluguelLaboraorios.setDevolucao(dataDevolucao);
             aluguelLaboraorios.setLaboratorios(laboratorio.get());

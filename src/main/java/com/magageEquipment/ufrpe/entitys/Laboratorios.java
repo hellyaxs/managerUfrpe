@@ -34,8 +34,8 @@ public class Laboratorios implements Serializable {
 
     private String descricao;
 
-    @Enumerated(value = EnumType.STRING)
-    private Status disponibilidade;
+
+    private Boolean disponibilidade;
 
 
 }

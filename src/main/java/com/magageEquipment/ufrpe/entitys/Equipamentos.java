@@ -38,7 +38,7 @@ public class Equipamentos implements Serializable {
 
     private Integer codigo;
 
-    @Enumerated(value = EnumType.STRING)
-    private Status disponibilidade;
+
+    private Boolean disponibilidade;
 
 }

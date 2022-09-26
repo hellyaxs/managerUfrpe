@@ -25,7 +25,7 @@ public class LaboratorioController {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.FOUND)
-    public Laboratorios getSalaAll(@PathVariable UUID uuid){
+    public Laboratorios getSalaAll(@PathVariable Long uuid){
         Optional<Laboratorios> optionallaboratorio = laboratorioRepository.findById(uuid);
         return optionallaboratorio.orElse(null);
     }
@@ -39,7 +39,7 @@ public class LaboratorioController {
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
     @Transactional
-    public void delete(@PathVariable UUID uuid){
+    public void delete(@PathVariable Long uuid){
         laboratorioRepository.deleteById(uuid);
     }
 }

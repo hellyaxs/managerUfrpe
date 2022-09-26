@@ -1,5 +1,6 @@
 package com.magageEquipment.ufrpe.entitys;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
@@ -20,11 +21,8 @@ public class AluguelEquipamentos implements Serializable  {
     private static final Long serialVersionUID = 2L;
 
     @Id
-    @GeneratedValue(generator = "uuid4")
-    @GenericGenerator(name = "UUID", strategy = "uuid4")
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    @Column(columnDefinition = "CHAR(36)")
-    private  UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private  String name;
 
@@ -36,6 +34,7 @@ public class AluguelEquipamentos implements Serializable  {
 
     private Long tempoDeUso;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
     private Equipamentos equipamento;
 

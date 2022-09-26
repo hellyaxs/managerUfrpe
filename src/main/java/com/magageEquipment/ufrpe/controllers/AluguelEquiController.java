@@ -1,12 +1,14 @@
 package com.magageEquipment.ufrpe.controllers;
 
 import com.magageEquipment.ufrpe.entitys.AluguelEquipamentos;
+import com.magageEquipment.ufrpe.entitys.Equipamentos;
 import com.magageEquipment.ufrpe.sevices.AluguelEquiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/AlugarEquipamentos")
@@ -21,8 +23,8 @@ public class AluguelEquiController {
        return aluguelEquiService.alugar(aluguelEquipamentos);
     }
 
-    @GetMapping
-    public List<AluguelEquipamentos> getAll(){
-        return aluguelEquiService.findAll();
+    @GetMapping("/{id}")
+    public List<AluguelEquipamentos> getAll(@PathVariable("id") Long uuid){
+        return aluguelEquiService.findByequipamento(uuid);
     }
 }

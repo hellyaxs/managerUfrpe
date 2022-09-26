@@ -22,7 +22,7 @@ public class EquipamentoController {
     }
 
     @GetMapping("/{id}")
-    public Equipamentos getEquipamentoById(@PathVariable UUID id){
+    public Equipamentos getEquipamentoById(@PathVariable Long id){
         Optional<Equipamentos> optionalEquipamentos = equipamentosRepository.findById(id);
         return optionalEquipamentos.orElse(null);
     }
@@ -35,7 +35,7 @@ public class EquipamentoController {
 
     @DeleteMapping("{id}")
     @Transactional
-    public void deleteEquipamentoById(@PathVariable UUID id){
+    public void deleteEquipamentoById(@PathVariable Long id){
         equipamentosRepository.deleteById(id);
 
     }

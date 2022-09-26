@@ -1,6 +1,7 @@
 package com.magageEquipment.ufrpe.sevices;
 
 import com.magageEquipment.ufrpe.entitys.AluguelEquipamentos;
+import com.magageEquipment.ufrpe.entitys.Equipamentos;
 import com.magageEquipment.ufrpe.enums.Status;
 import com.magageEquipment.ufrpe.repositorys.AluguelRepository;
 import com.magageEquipment.ufrpe.repositorys.EquipamentosRepository;
@@ -14,16 +15,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 public class AluguelEquiService {
 
-    private static final Long TIME_DEVOLUCTION= 2L;
-
     @Autowired
     private AluguelRepository aluguelRepository;
-
     @Autowired
     private EquipamentosRepository equipamentosRepository;
 
@@ -35,7 +34,7 @@ public class AluguelEquiService {
             var dataDevolucao = aluguelEquipamentos.getSolicitacao().plusHours(aluguelEquipamentos.getTempoDeUso());
             aluguelEquipamentos.setDevolucao(dataDevolucao);
 
-            var alugueis = aluguelRepository.findAll();
+            var alugueis = findByDateToday(aluguelEquipamentos.getSolicitacao().toLocalDate());
             for (var aluguelEquipamentos1: alugueis ) {
               var verifica = aluguelEquipamentos1.equals(aluguelEquipamentos);
               if (verifica){
@@ -50,6 +49,14 @@ public class AluguelEquiService {
         }
     }
 
+    public List<AluguelEquipamentos> findByequipamento(Long uuid){
+        return aluguelRepository.findByEquipamento_Id(uuid)
+                .stream()
+                .filter(aluguelEquipamentos -> aluguelEquipamentos.getSolicitacao().toLocalDate().isAfter(LocalDate.now())
+                        || aluguelEquipamentos.getSolicitacao().toLocalDate().equals(LocalDate.now()))
+                .collect(Collectors.toList());
+    }
+
     public List<AluguelEquipamentos> findAll(){
         return aluguelRepository.findAll();
     }
@@ -57,7 +64,12 @@ public class AluguelEquiService {
     public List<AluguelEquipamentos> findByDateToday(LocalDate today){
         return aluguelRepository.findAll()
                 .stream()
-                .filter(aluguelDate-> aluguelDate.getSolicitacao().toLocalDate()==today)
+                .filter(aluguelDate-> aluguelDate.getSolicitacao().toLocalDate().equals(today))
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void cancelarAluguel(Long id){
+        aluguelRepository.deleteById(id);
     }
 }

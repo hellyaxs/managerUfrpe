@@ -4,10 +4,9 @@ import com.magageEquipment.ufrpe.entitys.AluguelLaboraorios;
 import com.magageEquipment.ufrpe.sevices.AluguelLabService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/alugarLaboratorios")
@@ -19,5 +18,10 @@ public class AluguelLabController {
     @PostMapping
     public ResponseEntity<String> alugar(@RequestBody AluguelLaboraorios aluguelLaboraorios){
        return aluguelLabService.alugar(aluguelLaboraorios);
+    }
+
+    @GetMapping("/{id}")
+    public List<AluguelLaboraorios> getAll(@PathVariable Long id){
+        return aluguelLabService.findByEquipament(id);
     }
 }

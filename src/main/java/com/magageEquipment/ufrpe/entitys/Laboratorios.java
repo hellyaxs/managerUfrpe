@@ -26,7 +26,7 @@ public class Laboratorios implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Integer identificacao;
+    private String identificacao;
 
     private String localizacao;
 

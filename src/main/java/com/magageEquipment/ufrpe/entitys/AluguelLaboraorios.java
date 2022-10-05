@@ -51,7 +51,7 @@ public class AluguelLaboraorios implements Serializable {
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
-    private Laboratorios laboratorios;
+    private Laboratorios laboratorio;
 
     @Override
     public boolean equals(Object o) {
@@ -65,7 +65,7 @@ public class AluguelLaboraorios implements Serializable {
 
         return Objects
                 .equals(getSolicitacao().toLocalDate(), requestLaboratorio.getSolicitacao().toLocalDate())
-                && Objects.equals(getLaboratorios().getId(),requestLaboratorio.getLaboratorios().getId())
+                && Objects.equals(getLaboratorio().getId(),requestLaboratorio.getLaboratorio().getId())
                 &&intervaloDeUso ;
     }
 
@@ -73,7 +73,7 @@ public class AluguelLaboraorios implements Serializable {
     public int hashCode() {
         int result = getSolicitacao() != null ? getSolicitacao().hashCode() : 0;
         result = 31 * result + (getDevolucao() != null ? getDevolucao().hashCode() : 0);
-        result = 31 * result + (getLaboratorios() != null ? getLaboratorios().hashCode() : 0);
+        result = 31 * result + (getLaboratorio() != null ? getLaboratorio().hashCode() : 0);
         return result;
     }
 }

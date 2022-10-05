@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Repository
 public interface AluguelLaboraoriosRepository extends JpaRepository<AluguelLaboraorios, Long> {
-    List<AluguelLaboraorios> findByLaboratorios_IdOrderByNameAsc(Long id);
+    List<AluguelLaboraorios> findByLaboratorio_IdOrderByNameAsc(Long id);
 
 
 }

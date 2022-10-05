@@ -27,12 +27,12 @@ public class AluguelLabService {
 
     @Transactional
     public ResponseEntity<String> alugar(AluguelLaboraorios aluguelLaboraorios){
-        var laboratorio = laboratorioRepository.findById(aluguelLaboraorios.getLaboratorios().getId());
+        var laboratorio = laboratorioRepository.findById(aluguelLaboraorios.getLaboratorio().getId());
 
-        if(laboratorio.get().getDisponibilidade() == true){
+        if(laboratorio.get().getDisponibilidade() == true && laboratorio.isPresent()){
             var dataDevolucao = aluguelLaboraorios.getSolicitacao().plusHours(aluguelLaboraorios.getTempoDeUso());
             aluguelLaboraorios.setDevolucao(dataDevolucao);
-            aluguelLaboraorios.setLaboratorios(laboratorio.get());
+            aluguelLaboraorios.setLaboratorio(laboratorio.get());
 
 
             var alugueis = findByDateToday(aluguelLaboraorios.getSolicitacao().toLocalDate());
@@ -63,7 +63,7 @@ public class AluguelLabService {
     }
 
     public List<AluguelLaboraorios> findByEquipament(Long id){
-        return repository.findByLaboratorios_IdOrderByNameAsc(id)
+        return repository.findByLaboratorio_IdOrderByNameAsc(id)
                 .stream()
                 .filter(lab-> lab.getSolicitacao().toLocalDate().isAfter(LocalDate.now())
                 ||lab.getSolicitacao().toLocalDate().equals(LocalDate.now()))
